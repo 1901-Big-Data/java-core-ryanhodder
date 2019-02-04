@@ -398,26 +398,36 @@ public class EvaluationService {
 					vowelPos++;
 					s1 = words[i].substring(vowelPos, vowelPos+1);
 				}
+				
 				subS0 = words[i].substring(0, vowelPos);
-				subS1 = words[i].substring(vowelPos, vowelPos+1);
+				//test for q special case
+				if(subS0.equals("q")) {
+					subS0 += "u";
+					subS1 = words[i].substring(vowelPos+1, vowelPos+2);
+					pLatin += words[i].substring(vowelPos+1, words[i].length());//middle of word
+				}else {
+					subS1 = words[i].substring(vowelPos, vowelPos+1);
+					pLatin += words[i].substring(vowelPos+1, words[i].length());//middle of word
+				}
+				
 				pLatin = subS1;
-				pLatin += words[i].substring(vowelPos+1, words[i].length());
 				pLatin += subS0;
 				pLatin += ay;
+				pLatin += " ";
 				pLatinFull += pLatin.toString();
 			}
 			else {
+				//word that starts w vowel
 				pLatin = words[0];
 				pLatin += ay;
 				pLatinFull += pLatin;
 			}
 		}
-		pLatinFull.trim();
+		pLatinFull = pLatinFull.trim();
 		return pLatinFull;
 		//need to find different way to split up words
 		//should probably also use StringBuilder in this situation
-		//want to include spaces to maintain string of words
-		//add special case for q
+		//getting error with outofboundsexception
 	}
 
 	/**
